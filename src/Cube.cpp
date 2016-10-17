@@ -106,12 +106,12 @@ namespace RubiksCube
           temp[FRONT][0][2] = faces_[UP][0][2];
           temp[FRONT][1][2] = faces_[UP][1][2];
           temp[FRONT][2][2] = faces_[UP][2][2];
-          temp[UP][0][2] = faces_[BACK][2][0];
-          temp[UP][1][2] = faces_[BACK][2][1];
-          temp[UP][2][2] = faces_[BACK][2][2];
-          temp[BACK][2][2] = faces_[DOWN][0][2];
-          temp[BACK][2][1] = faces_[DOWN][1][2];
-          temp[BACK][2][0] = faces_[DOWN][2][2];
+          temp[UP][0][2] = faces_[BACK][0][0];
+          temp[UP][1][2] = faces_[BACK][1][0];
+          temp[UP][2][2] = faces_[BACK][2][0];
+          temp[BACK][2][0] = faces_[DOWN][0][2];
+          temp[BACK][1][0] = faces_[DOWN][1][2];
+          temp[BACK][0][0] = faces_[DOWN][2][2];
           temp[DOWN][0][2] = faces_[FRONT][0][2];
           temp[DOWN][1][2] = faces_[FRONT][1][2];
           temp[DOWN][2][2] = faces_[FRONT][2][2];
@@ -121,44 +121,96 @@ namespace RubiksCube
       case BACK:
         if (direction == CLOCKWISE)
         {
-          // RIGHT <- UP <- LEFT <- BOTTOM
+          // RIGHT(far right) -> UP(top) -> LEFT(far left) -> DOWN(bottom)
+          temp[RIGHT][0][2] = faces_[DOWN][2][0];
+          temp[RIGHT][1][2] = faces_[DOWN][2][1];
+          temp[RIGHT][2][2] = faces_[DOWN][2][2];
+          temp[UP][0] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
+          temp[LEFT][0][0] = faces_[UP][0][0];
+          temp[LEFT][1][0] = faces_[UP][0][1];
+          temp[LEFT][2][0] = faces_[UP][0][2];
+          temp[DOWN][2] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
         }
         else // direction == COUNTER_CLOCKWISE
         {
-          // RIGHT -> UP -> LEFT -> BOTTOM
+          // RIGHT(far right) <- UP(top) <- LEFT(far left) <- DOWN
+          temp[RIGHT][0][2] = faces_[UP][0][0];
+          temp[RIGHT][1][2] = faces_[UP][0][1];
+          temp[RIGHT][2][2] = faces_[UP][0][2];
+          temp[UP][0] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
+          temp[LEFT][0][0] = faces_[DOWN][2][0];
+          temp[LEFT][1][0] = faces_[DOWN][2][1];
+          temp[LEFT][2][0] = faces_[DOWN][2][2];
+          temp[DOWN][2] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
         }
         break;
 
       case LEFT:
         if (direction == CLOCKWISE)
         {
-
+          // UP(far left) -> FRONT(far left) -> BOTTOM(far left) -> BACK(far right reverse)
+          temp[FRONT][0][0] = faces_[UP][0][0];
+          temp[FRONT][1][0] = faces_[UP][1][0];
+          temp[FRONT][2][0] = faces_[UP][2][0];
+          temp[UP][0][0] = faces_[BACK][0][2];
+          temp[UP][1][0] = faces_[BACK][1][2];
+          temp[UP][2][0] = faces_[BACK][2][2];
+          temp[BACK][2][2] = faces_[DOWN][0][0];
+          temp[BACK][1][2] = faces_[DOWN][1][0];
+          temp[BACK][0][2] = faces_[DOWN][2][0];
+          temp[DOWN][0][0] = faces_[FRONT][0][0];
+          temp[DOWN][1][0] = faces_[FRONT][1][0];
+          temp[DOWN][2][0] = faces_[FRONT][2][0];
         }
         else // direction == COUNTER_CLOCKWISE
         {
-
+          // UP(far left) <- FRONT(far left) <- BOTTOM(far left) <- BACK(far right reverse)
+          temp[FRONT][0][0] = faces_[DOWN][0][0];
+          temp[FRONT][1][0] = faces_[DOWN][1][0];
+          temp[FRONT][2][0] = faces_[DOWN][2][0];
+          temp[UP][0][0] = faces_[FRONT][0][0];
+          temp[UP][1][0] = faces_[FRONT][1][0];
+          temp[UP][2][0] = faces_[FRONT][2][0];
+          temp[BACK][2][2] = faces_[UP][0][0];
+          temp[BACK][1][2] = faces_[UP][1][0];
+          temp[BACK][0][2] = faces_[UP][2][0];
+          temp[DOWN][0][0] = faces_[BACK][2][2];
+          temp[DOWN][1][0] = faces_[BACK][1][2];
+          temp[DOWN][2][0] = faces_[BACK][0][2];
         }
         break;
 
       case UP:
         if (direction == CLOCKWISE)
         {
-
+          temp[BACK][0] = faces_[LEFT][0];
+          temp[RIGHT][0] = faces_[BACK][0];
+          temp[FRONT][0] = faces_[RIGHT][0];
+          temp[LEFT][0] = faces_[FRONT][0];
         }
         else // direction == COUNTER_CLOCKWISE
         {
-
+          temp[BACK][0] = faces_[RIGHT][0];
+          temp[RIGHT][0] = faces_[FRONT][0];
+          temp[FRONT][0] = faces_[LEFT][0];
+          temp[LEFT][0] = faces_[BACK][0];
         }
         break;
 
       case DOWN:
         if (direction == CLOCKWISE)
         {
-
+          temp[BACK][2] = faces_[RIGHT][2];
+          temp[RIGHT][2] = faces_[FRONT][2];
+          temp[FRONT][2] = faces_[LEFT][2];
+          temp[LEFT][2] = faces_[BACK][2];
         }
         else // direction == COUNTER_CLOCKWISE
         {
-
+          temp[BACK][2] = faces_[LEFT][2];
+          temp[RIGHT][2] = faces_[BACK][2];
+          temp[FRONT][2] = faces_[RIGHT][2];
+          temp[LEFT][2] = faces_[FRONT][2];
         }
         break;
       default:
@@ -193,8 +245,7 @@ namespace RubiksCube
 
   Cube_Of_Faces Cube::view() const
   {
-    // TODO
-    return Cube_Of_Faces();
+    return faces_;
   }
 
   void Cube::reset()
