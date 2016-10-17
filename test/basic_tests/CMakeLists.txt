@@ -1,5 +1,6 @@
 include_directories(${gtest_SOUCE_DIR}/include ${gtest_SOURCE_DIR})
 
-add_executable(runTests CubeTests.cpp)
+add_executable(runBasicCubeTests CubeTests.cpp
+                ../../src/Cube.cpp)
 
-target_link_libraries(runTests gtest gtest_main)
+target_link_libraries(runBasicCubeTests gtest gtest_main)

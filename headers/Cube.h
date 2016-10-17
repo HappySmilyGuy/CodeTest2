@@ -11,7 +11,7 @@ namespace RubiksCube
 {
   enum Colour { GREEN, RED, BLUE, ORANGE, WHITE, YELLOW };
   enum Face { FRONT, RIGHT, BACK, LEFT, UP, DOWN };
-  enum Direction { CLOCKWISE, COUTER_CLOCKWISE };
+  enum Direction { CLOCKWISE, COUNTER_CLOCKWISE };
   enum Axis { X, Y, Z };
 
   typedef std::array<std::array<Colour, 3>, 3> Face_Type;
