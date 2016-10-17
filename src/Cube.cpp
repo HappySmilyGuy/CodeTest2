@@ -260,31 +260,24 @@ namespace RubiksCube
         if (dir == CLOCKWISE)
         {
           rotate_just_face(DOWN, COUNTER_CLOCKWISE);
-          Cube_Of_Faces temp = faces_;
-          for (int x = 0; x < 3; ++x)
-          {
-            for (int y = 0; y < 3; ++y)
-            {
-              // TODO
-            }
-          }
-          faces_ = temp;
+          Face_Type temp = faces_[RIGHT];
+          faces_[RIGHT] = faces_[BACK];
+          faces_[BACK] = faces_[LEFT];
+          faces_[LEFT] = faces_[FRONT];
+          faces_[FRONT] = temp;
         }
         else // dir == COUNTER_CLOCKWISE
         {
           rotate_just_face(DOWN, CLOCKWISE);
-          Cube_Of_Faces temp = faces_;
-          for (int x = 0; x < 3; ++x)
-          {
-            for (int y = 0; y < 3; ++y)
-            {
-              // TODO
-            }
-          }
-          faces_ = temp;
+          Face_Type temp = faces_[RIGHT];
+          faces_[RIGHT] = faces_[FRONT];
+          faces_[FRONT] = faces_[LEFT];
+          faces_[LEFT] = faces_[BACK];
+          faces_[BACK] = temp;
         }
         break;
       case Z:
+        rotate_just_face(FRONT, CLOCKWISE);
         if (dir == CLOCKWISE)
         {
           rotate_just_face(BACK, COUNTER_CLOCKWISE);
@@ -293,7 +286,10 @@ namespace RubiksCube
           {
             for (int y = 0; y < 3; ++y)
             {
-              // TODO
+              temp[UP][x][y] = faces_[LEFT][2-y][x];
+              temp[RIGHT][x][y] = faces_[UP][2-y][x];
+              temp[DOWN][x][y] = faces_[RIGHT][2-y][x];
+              temp[LEFT][x][y] = faces_[DOWN][2-y][x];
             }
           }
           faces_ = temp;
@@ -306,7 +302,10 @@ namespace RubiksCube
           {
             for (int y = 0; y < 3; ++y)
             {
-              // TODO
+              temp[UP][x][y] = faces_[RIGHT][2-x][y];
+              temp[RIGHT][x][y] = faces_[DOWN][2-x][y];
+              temp[DOWN][x][y] = faces_[LEFT][2-x][y];
+              temp[LEFT][x][y] = faces_[UP][2-x][y];
             }
           }
           faces_ = temp;

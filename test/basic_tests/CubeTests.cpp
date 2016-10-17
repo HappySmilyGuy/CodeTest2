@@ -151,8 +151,8 @@ TEST(CubeTests, RotateCubeFunction)
     int expected[6][3][3] = {{{5, 5, 5}, {5, 5, 5}, {5, 5, 5}},
                              {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}},
                              {{4, 4, 4}, {4, 4, 4}, {4, 4, 4}},
-                             {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
                              {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}},
+                             {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
                              {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}}};
     EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate the face that is rotating. 0.";
   }
