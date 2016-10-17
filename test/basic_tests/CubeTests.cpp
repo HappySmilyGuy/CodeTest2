@@ -54,27 +54,43 @@ TEST(CubeTests, equivalent_function)
 
 TEST(CubeTests, rotate_face_function)
 {
-  Cube a;
-
+  // TODO
 }
 
 TEST(CubeTests, rotate_cube_function)
 {
-
+  // TODO
 }
 
 TEST(CubeTests, randomise_function)
 {
-
+  // TODO
 }
 
 TEST(CubeTests, is_complete_function)
 {
-
+  Cube a;
+  EXPECT_TRUE(a.is_complete()) << "\"is_complete()\" incorrectly identifies a default cube as incomplete.";
+  a.rotate_face(UP, COUNTERCLOCKWISE);
+  EXPECT_FALSE(a.is_complete()) << "\"is_complete()\" incorrectly identifies an incomplete cube as complete.";
+  a.rotate_face(UP, CLOCKWISE);
+  EXPECT_TRUE(a.is_complete()) << "\"is_complete()\" incorrectly identifies a complete cube as incomplete. 1.";
+  a.rotate_cube(X, CLOCKWISE);
+  EXPECT_TRUE(a.is_complete()) << "\"is_complete()\" incorrectly identifies a rotated complete cube as incomplete. 1.";
 }
 
 TEST(CubeTests, reset_function)
 {
-
+  {
+    Cube a;
+    a.rotate_face(UP, COUNTER_CLOCKWISE);
+    a.reset();
+    EXPECT_EQ(a, Cube()) << "\"reset()\" does not successfully reset a cube with a rotated face.";
+  }
+  {
+    Cube a;
+    a.rotate_cube(X, COUNTER_CLOCKWISE);
+    a.reset();
+    EXPECT_EQ(a, Cube()) << "\"reset()\" does not successfully reset a rotated cube.";
+  }
 }
-
