@@ -112,10 +112,10 @@ TEST(CubeTests, RotateFaceFunction)
                              {{3, 3, 5}, {3, 3, 5}, {3, 3, 5}},
                              {{4, 4, 4}, {4, 4, 4}, {3, 3, 3}},
                              {{1, 1, 1}, {5, 5, 5}, {5, 5, 5}}};
-    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate a face. 1.";
+    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate FRONT CLOCKWISE.";
   }
   a.rotate_face(Face::FRONT, COUNTER_CLOCKWISE);
-  EXPECT_EQ(a, Cube()) << "\"rotate_face\" function does not correctly rotate COUNTER_CLOCKWISE.";
+  EXPECT_EQ(a, Cube()) << "\"rotate_face\" function does not correctly rotate FRONT COUNTER_CLOCKWISE.";
   a.rotate_face(Face::BACK, CLOCKWISE);
   {
     int expected[6][3][3] = {{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
@@ -124,21 +124,38 @@ TEST(CubeTests, RotateFaceFunction)
                              {{4, 3, 3}, {4, 3, 3}, {4, 3, 3}},
                              {{1, 1, 1}, {4, 4, 4}, {4, 4, 4}},
                              {{5, 5, 5}, {5, 5, 5}, {3, 3, 3}}};
-    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate a face. 2.";
+    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate BACK CLOCKWISE.";
   }
   a.rotate_face(Face::RIGHT, CLOCKWISE);
   {
     int expected[6][3][3] = {{{0, 0, 5}, {0, 0, 5}, {0, 0, 3}},
                              {{1, 1, 1}, {1, 1, 1}, {5, 5, 5}},
-                             {{1, 2, 2}, {4, 2, 2}, {4, 2, 2}},
+                             {{4, 2, 2}, {4, 2, 2}, {1, 2, 2}},
                              {{4, 3, 3}, {4, 3, 3}, {4, 3, 3}},
                              {{1, 1, 0}, {4, 4, 0}, {4, 4, 0}},
                              {{5, 5, 2}, {5, 5, 2}, {3, 3, 2}}};
-    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate the face that is rotating. 3.";
+    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate FRONT and it's face CLOCKWISE.";
+  }
+  a.rotate_face(Face::RIGHT, COUNTER_CLOCKWISE);
+  {
+    int expected[6][3][3] = {{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+                             {{1, 1, 5}, {1, 1, 5}, {1, 1, 5}},
+                             {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
+                             {{4, 3, 3}, {4, 3, 3}, {4, 3, 3}},
+                             {{1, 1, 1}, {4, 4, 4}, {4, 4, 4}},
+                             {{5, 5, 5}, {5, 5, 5}, {3, 3, 3}}};
+    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate\" doesn't correctly rotate RIGHT's face COUNTER_CLOCKWISE.";
   }
   a.rotate_face(Face::BACK, COUNTER_CLOCKWISE);
-  a.rotate_face(Face::BACK, COUNTER_CLOCKWISE);
-  EXPECT_EQ(a, Cube()) << "\"rotate_face\" function does not correctly rotate COUNTER_CLOCKWISE.";
+  {
+    int expected[6][3][3] = {{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+                             {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}},
+                             {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
+                             {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}},
+                             {{4, 4, 4}, {4, 4, 4}, {4, 4, 4}},
+                             {{5, 5, 5}, {5, 5, 5}, {5, 5, 5}}};
+    EXPECT_TRUE(check_cube(a, expected, f, x, y)) << "\"rotate_face\" function does not correctly rotate BACK COUNTER_CLOCKWISE.";
+  }
   // TODO tests need extending.
 }
 
@@ -186,7 +203,7 @@ TEST(CubeTests, RotateCubeFunction)
   EXPECT_EQ(a, Cube()) << "\"rotate_cube\" function does not correctly rotate COUNTER_CLOCKWISE in Z.";
 }
 
-TEST(CubeTests, RandomiseFunction)
+TEST(DISABLED_CubeTests, RandomiseFunction)
 {
   Cube a, b, c;
   a.randomise();

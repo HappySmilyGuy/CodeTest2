@@ -47,9 +47,8 @@ namespace RubiksCube
     {
       return;
     }
-    Cube_Of_Faces temp = faces_;
-
     rotate_just_face(face, direction);
+    Cube_Of_Faces temp = faces_;
 
     // rotate connected edge stickers
     switch (face)
@@ -58,11 +57,11 @@ namespace RubiksCube
         if (direction == CLOCKWISE)
         {
           // <- R(far left) <- U(bottom) <- L(far right) <- D(top)
-          temp[DOWN][0] = {faces_[RIGHT][0][0], faces_[RIGHT][0][1], faces_[RIGHT][0][2]};
+          temp[DOWN][0] = {faces_[RIGHT][0][0], faces_[RIGHT][1][0], faces_[RIGHT][2][0]};
           temp[RIGHT][0][0] = faces_[UP][2][0];
-          temp[RIGHT][0][1] = faces_[UP][2][1];
-          temp[RIGHT][0][2] = faces_[UP][2][2];
-          temp[UP][3] = {faces_[LEFT][2][2], faces_[LEFT][1][2], faces_[LEFT][0][2]};
+          temp[RIGHT][1][0] = faces_[UP][2][1];
+          temp[RIGHT][2][0] = faces_[UP][2][2];
+          temp[UP][2] = {faces_[LEFT][2][2], faces_[LEFT][1][2], faces_[LEFT][0][2]};
           temp[LEFT][0][2] = faces_[DOWN][0][0];
           temp[LEFT][1][2] = faces_[DOWN][0][1];
           temp[LEFT][2][2] = faces_[DOWN][0][2];
@@ -71,9 +70,9 @@ namespace RubiksCube
         {
           temp[DOWN][0] = {faces_[LEFT][0][2], faces_[LEFT][1][2], faces_[LEFT][2][2]};
           temp[RIGHT][0][0] = faces_[DOWN][0][0];
-          temp[RIGHT][0][1] = faces_[DOWN][0][1];
-          temp[RIGHT][0][2] = faces_[DOWN][0][2];
-          temp[UP][3] = {faces_[RIGHT][0][0], faces_[RIGHT][0][1], faces_[RIGHT][0][2]};
+          temp[RIGHT][1][0] = faces_[DOWN][0][1];
+          temp[RIGHT][2][0] = faces_[DOWN][0][2];
+          temp[UP][2] = {faces_[RIGHT][0][0], faces_[RIGHT][1][0], faces_[RIGHT][2][0]};
           temp[LEFT][0][2] = faces_[UP][2][2];
           temp[LEFT][1][2] = faces_[UP][2][1];
           temp[LEFT][2][2] = faces_[UP][2][0];
@@ -90,12 +89,12 @@ namespace RubiksCube
           temp[UP][0][2] = faces_[FRONT][0][2];
           temp[UP][1][2] = faces_[FRONT][1][2];
           temp[UP][2][2] = faces_[FRONT][2][2];
-          temp[BACK][2][2] = faces_[UP][0][2];
-          temp[BACK][2][1] = faces_[UP][1][2];
-          temp[BACK][2][0] = faces_[UP][2][2];
-          temp[DOWN][0][2] = faces_[BACK][2][2];
-          temp[DOWN][1][2] = faces_[BACK][2][1];
-          temp[DOWN][2][2] = faces_[BACK][2][0];
+          temp[BACK][2][0] = faces_[UP][0][2];
+          temp[BACK][1][0] = faces_[UP][1][2];
+          temp[BACK][0][0] = faces_[UP][2][2];
+          temp[DOWN][0][2] = faces_[BACK][2][0];
+          temp[DOWN][1][2] = faces_[BACK][1][0];
+          temp[DOWN][2][2] = faces_[BACK][0][0];
         }
         else // direction == COUNTER_CLOCKWISE
         {
@@ -103,9 +102,9 @@ namespace RubiksCube
           temp[FRONT][0][2] = faces_[UP][0][2];
           temp[FRONT][1][2] = faces_[UP][1][2];
           temp[FRONT][2][2] = faces_[UP][2][2];
-          temp[UP][0][2] = faces_[BACK][0][0];
+          temp[UP][0][2] = faces_[BACK][2][0];
           temp[UP][1][2] = faces_[BACK][1][0];
-          temp[UP][2][2] = faces_[BACK][2][0];
+          temp[UP][2][2] = faces_[BACK][0][0];
           temp[BACK][2][0] = faces_[DOWN][0][2];
           temp[BACK][1][0] = faces_[DOWN][1][2];
           temp[BACK][0][0] = faces_[DOWN][2][2];
@@ -126,7 +125,7 @@ namespace RubiksCube
           temp[LEFT][0][0] = faces_[UP][0][0];
           temp[LEFT][1][0] = faces_[UP][0][1];
           temp[LEFT][2][0] = faces_[UP][0][2];
-          temp[DOWN][2] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
+          temp[DOWN][2] = {faces_[LEFT][0][0], faces_[LEFT][0][1], faces_[LEFT][0][2]};
         }
         else // direction == COUNTER_CLOCKWISE
         {
@@ -134,11 +133,11 @@ namespace RubiksCube
           temp[RIGHT][0][2] = faces_[UP][0][0];
           temp[RIGHT][1][2] = faces_[UP][0][1];
           temp[RIGHT][2][2] = faces_[UP][0][2];
-          temp[UP][0] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
+          temp[UP][0] = {faces_[LEFT][2][0], faces_[LEFT][1][0], faces_[LEFT][0][0]};
           temp[LEFT][0][0] = faces_[DOWN][2][0];
           temp[LEFT][1][0] = faces_[DOWN][2][1];
           temp[LEFT][2][0] = faces_[DOWN][2][2];
-          temp[DOWN][2] = {faces_[RIGHT][0][2], faces_[RIGHT][1][2], faces_[RIGHT][2][2]};
+          temp[DOWN][2] = {faces_[RIGHT][2][2], faces_[RIGHT][1][2], faces_[RIGHT][0][2]};
         }
         break;
 
@@ -340,7 +339,7 @@ namespace RubiksCube
 
   void Cube::reset()
   {
-    //TODO
+    faces_ = initialised_faces();
   }
 
   bool Cube::operator==(const Cube &rhs) const
@@ -356,6 +355,8 @@ namespace RubiksCube
   bool Cube::equivalent(const Cube &rhs) const
   {
     //TODO
+    // rotate a copy of rhs and a copy of faces_ until they are [1][1] of each face is equal to the number of it's face
+    // compare equality.
     return false;
   }
 
@@ -368,11 +369,11 @@ namespace RubiksCube
       {
         if (dir == CLOCKWISE)
         {
-          temp[x][y] = faces_[face][x][2 - y];
+          temp[x][y] = faces_[face][2 - y][x];
         }
         else // dir == COUNTER_CLOCKWISE
         {
-          temp[x][y] = faces_[face][2 - x][y];
+          temp[x][y] = faces_[face][y][2-x];
         }
       }
     }
