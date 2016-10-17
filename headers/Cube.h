@@ -9,13 +9,13 @@
 
 namespace RubiksCube
 {
-  typedef std::array<std::array<Colour, 3>, 3> Face;
-  typedef std::array<Face, 6> Cube_Of_Faces;
-
   enum Colour { GREEN, RED, BLUE, ORANGE, WHITE, YELLOW };
   enum Face { FRONT, RIGHT, BACK, LEFT, UP, DOWN };
   enum Direction { CLOCKWISE, COUTER_CLOCKWISE };
   enum Axis { X, Y, Z };
+
+  typedef std::array<std::array<Colour, 3>, 3> Face_Type;
+  typedef std::array<Face_Type, 6> Cube_Of_Faces;
 
   const std::array<std::string, 6> ColourStrings = {"Green", "Red", "Blue", "Orange", "White", "Yellow"};
   const std::array<char, 6> ColourChars = { 'G', 'R', 'B', 'O', 'W', 'Y' };
@@ -56,7 +56,8 @@ namespace RubiksCube
     /// Returns whether each side of the cube includes stickers with only a single colour.
     bool is_solved() const;
 
-    // Cube_Of_Faces view() const;
+    /// Returns a copy of the state of the cube.
+    Cube_Of_Faces view() const;
 
     /// Sets the state to the same as the default constructor.
     void reset();

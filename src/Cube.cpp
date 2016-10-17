@@ -20,14 +20,13 @@ namespace RubiksCube
 
   Cube::Cube(const Cube& in)
   {
-
+    // TODO
   }
 
   Cube::~Cube()
-  {
-  }
+  {}
 
-  void Cube::randomise(unsigned int no_of_rotates = 30)
+  void Cube::randomise(unsigned int no_of_rotates)
   {
     //TODO
   }
@@ -46,6 +45,12 @@ namespace RubiksCube
   {
     // TODO
     return false;
+  }
+
+  Cube_Of_Faces Cube::view() const
+  {
+    // TODO
+    return Cube_Of_Faces();
   }
 
   void Cube::reset()
