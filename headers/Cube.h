@@ -69,6 +69,7 @@ namespace RubiksCube
     bool equivalent(const Cube &rhs) const;
 
   private:
+    void rotate_just_face(Face face, Direction dir);
     // equivalent to "Colour faces[6][3][3]"
     Cube_Of_Faces faces_;
   };

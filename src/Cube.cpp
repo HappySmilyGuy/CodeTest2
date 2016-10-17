@@ -10,7 +10,18 @@ namespace RubiksCube
   {
     Cube_Of_Faces initialised_faces()
     {
-
+      Cube_Of_Faces out;
+      for (int f = 0; f < 6; ++f)
+      {
+        for (int x = 0; x < 3; ++x)
+        {
+          for (int y = 0; y < 3; ++y)
+          {
+            out[f][x][y] = static_cast<Colour>(f);
+          }
+        }
+      }
+      return out;
     }
   }
 
@@ -38,23 +49,9 @@ namespace RubiksCube
     }
     Cube_Of_Faces temp = faces_;
 
-    // rotate only the face stickers
-    for (int x = 0; x < 3; ++x)
-    {
-      for (int y = 0; y < 3; ++y)
-      {
-        if (direction == CLOCKWISE)
-        {
-          temp[face][x][y] = faces_[face][x][2 - y];
-        }
-        else //direction == COUNTER_CLOCKWISE
-        {
-          temp[face][x][y] = faces_[face][2 - x][y];
-        }
-      }
-    }
+    rotate_just_face(face, direction);
 
-    // TODO rotate connected edge stickers
+    // rotate connected edge stickers
     switch (face)
     {
       case FRONT:
@@ -221,7 +218,101 @@ namespace RubiksCube
 
   void Cube::rotate_cube(Axis axis, Direction dir)
   {
-
+    switch (axis)
+    {
+      case X:
+        rotate_just_face(RIGHT, dir);
+        if (dir == CLOCKWISE)
+        {
+          rotate_just_face(LEFT, COUNTER_CLOCKWISE);
+          Cube_Of_Faces temp = faces_;
+          for (int x = 0; x < 3; ++x)
+          {
+            for (int y = 0; y < 3; ++y)
+            {
+              temp[FRONT][x][y] = faces_[DOWN][x][y];
+              temp[UP][x][y] = faces_[FRONT][x][y];
+              temp[BACK][x][y] = faces_[UP][2-x][2-y];
+              temp[DOWN][x][y] = faces_[BACK][2-x][2-y];
+            }
+          }
+          faces_ = temp;
+        }
+        else // dir == COUNTER_CLOCKWISE
+        {
+          rotate_just_face(LEFT, CLOCKWISE);
+          Cube_Of_Faces temp = faces_;
+          for (int x = 0; x < 3; ++x)
+          {
+            for (int y = 0; y < 3; ++y)
+            {
+              temp[FRONT][x][y] = faces_[UP][x][y];
+              temp[UP][x][y] = faces_[BACK][2-x][2-y];
+              temp[BACK][x][y] = faces_[DOWN][2-x][2-y];
+              temp[DOWN][x][y] = faces_[FRONT][x][y];
+            }
+          }
+          faces_ = temp;
+        }
+        break;
+      case Y:
+        rotate_just_face(UP, dir);
+        if (dir == CLOCKWISE)
+        {
+          rotate_just_face(DOWN, COUNTER_CLOCKWISE);
+          Cube_Of_Faces temp = faces_;
+          for (int x = 0; x < 3; ++x)
+          {
+            for (int y = 0; y < 3; ++y)
+            {
+              // TODO
+            }
+          }
+          faces_ = temp;
+        }
+        else // dir == COUNTER_CLOCKWISE
+        {
+          rotate_just_face(DOWN, CLOCKWISE);
+          Cube_Of_Faces temp = faces_;
+          for (int x = 0; x < 3; ++x)
+          {
+            for (int y = 0; y < 3; ++y)
+            {
+              // TODO
+            }
+          }
+          faces_ = temp;
+        }
+        break;
+      case Z:
+        if (dir == CLOCKWISE)
+        {
+          rotate_just_face(BACK, COUNTER_CLOCKWISE);
+          Cube_Of_Faces temp = faces_;
+          for (int x = 0; x < 3; ++x)
+          {
+            for (int y = 0; y < 3; ++y)
+            {
+              // TODO
+            }
+          }
+          faces_ = temp;
+        }
+        else // dir == COUNTER_CLOCKWISE
+        {
+          rotate_just_face(BACK, CLOCKWISE);
+          Cube_Of_Faces temp = faces_;
+          for (int x = 0; x < 3; ++x)
+          {
+            for (int y = 0; y < 3; ++y)
+            {
+              // TODO
+            }
+          }
+          faces_ = temp;
+        }
+        break;
+    }
   }
 
   bool Cube::is_solved() const
@@ -267,6 +358,26 @@ namespace RubiksCube
   {
     //TODO
     return false;
+  }
+
+  void Cube::rotate_just_face(Face face, Direction dir)
+  {
+    Face_Type temp;
+    for (int x = 0; x < 3; ++x)
+    {
+      for (int y = 0; y < 3; ++y)
+      {
+        if (dir == CLOCKWISE)
+        {
+          temp[x][y] = faces_[face][x][2 - y];
+        }
+        else // dir == COUNTER_CLOCKWISE
+        {
+          temp[x][y] = faces_[face][2 - x][y];
+        }
+      }
+    }
+    faces_[face] = temp;
   }
 
 }
