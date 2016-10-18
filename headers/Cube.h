@@ -19,11 +19,6 @@ namespace RubiksCube
   typedef std::array<std::array<Colour, 3>, 3> Face_Type;
   typedef std::array<Face_Type, 6> Cube_Of_Faces;
 
-  const std::array<std::string, 6> ColourStrings = {"Green", "Red", "Blue", "Orange", "White", "Yellow"};
-  const std::array<char, 6> ColourChars = { 'G', 'R', 'B', 'O', 'W', 'Y' };
-  const std::array<std::string, 6> FaceStrings { "Front", "Right", "Back", "Left", "Up", "Down" };
-  const std::array<char, 6> FaceChars = { 'F', 'R', 'B', 'L', 'T', 'D' };
-
   /// This class is an implementation of a Rubik's Cube.
   /// WARNING: this class is not thread safe.
   ///
@@ -66,9 +61,6 @@ namespace RubiksCube
 
     bool operator==(const Cube &rhs) const;
     bool operator!=(const Cube &rhs) const;
-
-    /// returns true if the cubes are the same but in different orientations.
-    bool equivalent(const Cube &rhs) const;
 
   private:
     void rotate_just_face(Face face, Direction dir);

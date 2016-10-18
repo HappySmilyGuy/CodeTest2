@@ -364,14 +364,6 @@ namespace RubiksCube
     return !(rhs == *this);
   }
 
-  bool Cube::equivalent(const Cube &rhs) const
-  {
-    // TODO
-    // rotate a copy of rhs and a copy of faces_ until they are [1][1] of each face is equal to the number of it's face
-    // compare equality.
-    return false;
-  }
-
   void Cube::rotate_just_face(Face face, Direction dir)
   {
     Face_Type temp;

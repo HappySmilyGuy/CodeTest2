@@ -8,6 +8,16 @@ using RubiksCube::Direction::CLOCKWISE;
 using RubiksCube::Direction::COUNTER_CLOCKWISE;
 using RubiksCube::Axis;
 
+TEST(CubeTests, DefaultConstructor)
+{
+  // TODO
+}
+
+TEST(CubeTests, CopyConstructor)
+{
+  // TODO
+}
+
 TEST(CubeTests, EqualityOperand)
 {
   Cube a;
@@ -34,29 +44,6 @@ TEST(CubeTests, InequalityOperand)
   EXPECT_FALSE(a != b) << "Cube inequality operand does not correctly identify equality after rotations.";
   a.rotate_cube(Axis::X, CLOCKWISE);
   EXPECT_TRUE(a != b) << "Cube inequality operand does not correctly identify inequality by orientation.";
-}
-
-TEST(DISABLED_CubeTests, EquivalentFunction)
-{
-  Cube a;
-  EXPECT_TRUE(a.equivalent(a)) << "\"equivalent\" function does not correctly match equality.";
-  Cube b(a);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equality. 0.";
-  b.rotate_cube(Axis::X, CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equivalence. 0.";
-  b.rotate_cube(Axis::X, COUNTER_CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equality. 1.";
-  b.rotate_cube(Axis::Y, CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equivalence. 1.";
-  b.rotate_cube(Axis::Y, COUNTER_CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equality. 2.";
-  b.rotate_cube(Axis::Z, CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equivalence. 2.";
-  b.rotate_cube(Axis::Z, COUNTER_CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equality. 3.";
-  b.rotate_cube(Axis::X, CLOCKWISE);
-  b.rotate_cube(Axis::X, CLOCKWISE);
-  EXPECT_TRUE(a.equivalent(b)) << "\"equivalent\" function does not correctly match equivalence. 3.";
 }
 
 namespace
