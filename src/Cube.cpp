@@ -3,6 +3,8 @@
 //
 
 #include "../headers/Cube.h"
+#include <random>
+#include <chrono>
 
 namespace RubiksCube
 {

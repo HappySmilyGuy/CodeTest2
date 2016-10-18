@@ -6,8 +6,6 @@
 #define RUBIKS_CUBE_CUBE_H
 
 #include <array>
-#include <random>
-#include <chrono>
 
 namespace RubiksCube
 {
@@ -38,9 +36,8 @@ namespace RubiksCube
     /// Cube is created with in the same state as @obj
     Cube(const Cube& obj);
     virtual ~Cube();
-
-    /// Applies @no_of_rotates random rotations.
-    void randomise(unsigned int no_of_rotations = 30);
+    bool operator==(const Cube &rhs) const;
+    bool operator!=(const Cube &rhs) const;
 
     void rotate_face(Face, Direction);
 
@@ -56,11 +53,11 @@ namespace RubiksCube
     /// Returns a copy of the state of the cube.
     Cube_Of_Faces view() const;
 
+    /// Applies @no_of_rotates random rotations.
+    void randomise(unsigned int no_of_rotations = 30);
+
     /// Sets the state to the same as the default constructor.
     void reset();
-
-    bool operator==(const Cube &rhs) const;
-    bool operator!=(const Cube &rhs) const;
 
   private:
     void rotate_just_face(Face face, Direction dir);
