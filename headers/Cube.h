@@ -6,6 +6,8 @@
 #define RUBIKS_CUBE_CUBE_H
 
 #include <array>
+#include <random>
+#include <chrono>
 
 namespace RubiksCube
 {
@@ -43,7 +45,7 @@ namespace RubiksCube
     virtual ~Cube();
 
     /// Applies @no_of_rotates random rotations.
-    void randomise(unsigned int no_of_rotates = 30);
+    void randomise(unsigned int no_of_rotations = 30);
 
     void rotate_face(Face, Direction);
 
@@ -70,6 +72,7 @@ namespace RubiksCube
 
   private:
     void rotate_just_face(Face face, Direction dir);
+
     // equivalent to "Colour faces[6][3][3]"
     Cube_Of_Faces faces_;
   };

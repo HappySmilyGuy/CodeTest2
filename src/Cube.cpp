@@ -36,9 +36,21 @@ namespace RubiksCube
   Cube::~Cube()
   {}
 
-  void Cube::randomise(unsigned int no_of_rotates)
+  void Cube::randomise(unsigned int no_of_rotations)
   {
-    //TODO
+    long long int seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::knuth_b rng(seed); // random number generator
+    for (int i = 0; i < no_of_rotations; ++i)
+    {
+      if (rng() & 1)
+      {
+        rotate_face(static_cast<Face>(rng()%6), static_cast<Direction>(rng() & 1));
+      }
+      else
+      {
+        rotate_cube(static_cast<Axis>(rng()%3), static_cast<Direction>(rng() & 1));
+      }
+    }
   }
 
   void Cube::rotate_face(Face face, Direction direction)
@@ -354,7 +366,7 @@ namespace RubiksCube
 
   bool Cube::equivalent(const Cube &rhs) const
   {
-    //TODO
+    // TODO
     // rotate a copy of rhs and a copy of faces_ until they are [1][1] of each face is equal to the number of it's face
     // compare equality.
     return false;
