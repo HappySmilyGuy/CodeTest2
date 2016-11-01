@@ -38,9 +38,12 @@ namespace RubiksCube
   Cube::~Cube()
   {}
 
-  void Cube::randomise(unsigned int no_of_rotations)
+  void Cube::randomise(long long int seed, unsigned int no_of_rotations)
   {
-    long long int seed = std::chrono::system_clock::now().time_since_epoch().count();
+    if (seed == 0)
+    {
+      seed = std::chrono::system_clock::now().time_since_epoch().count();
+    }
     std::knuth_b rng(seed); // random number generator
     for (int i = 0; i < no_of_rotations; ++i)
     {

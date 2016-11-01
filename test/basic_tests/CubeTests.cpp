@@ -4,6 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "../../headers/Cube.h"
+#include <chrono>
 
 namespace RubiksCube
 {
@@ -213,11 +214,12 @@ namespace RubiksCube
   TEST(CubeTests, RandomiseFunction)
   {
     Cube a, b, c;
-    a.randomise();
-    b.randomise();
-    c.randomise();
+    long long int seed = std::chrono::system_clock::now().time_since_epoch().count();
+    a.randomise(seed++);
+    b.randomise(seed++);
+    c.randomise(seed);
     EXPECT_FALSE(a == Cube() && b == Cube()) << "\"randomise()\" doesn't do any changes.";
-    //EXPECT_FALSE(a == b && b == c) << "\"randomise()\" doesn't do random changes.";
+    EXPECT_FALSE(a == b && b == c) << "\"randomise()\" doesn't do random changes.";
   }
 
   TEST(CubeTests, IsCompleteFunction)

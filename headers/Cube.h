@@ -54,7 +54,7 @@ namespace RubiksCube
     Cube_Of_Faces view() const;
 
     /// Applies @no_of_rotates random rotations.
-    void randomise(unsigned int no_of_rotations = 30);
+    void randomise(long long int seed = 0, unsigned int no_of_rotations = 30);
 
     /// Sets the state to the same as the default constructor.
     void reset();
